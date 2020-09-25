@@ -8,10 +8,10 @@ import {
   FB_DATABASE_URL, 
   FB_PROJECTID, 
   FB_STORAGE_BUCKET, 
-  FB_MESSAGE_SENDER_ID, 
+  FB_MESSAGING_SENDER_ID, 
   FB_MESSAGE_APP_ID,
   FB_MEASUREMENT_ID,
-} from "@env";
+} from "../../.env.json";
 
 if (!firebase.apps.length){
   console.log(FB_API_KEY)
@@ -21,7 +21,7 @@ if (!firebase.apps.length){
     databaseURL: FB_DATABASE_URL,
     projectId: FB_PROJECTID,
     storageBucket: FB_STORAGE_BUCKET,
-    messagingSenderId: FB_MESSAGE_SENDER_ID,
+    messagingSenderId: FB_MESSAGING_SENDER_ID,
     appId: FB_MESSAGE_APP_ID,
     measurementId: FB_MEASUREMENT_ID,
   });
