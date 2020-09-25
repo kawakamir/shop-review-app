@@ -14,7 +14,6 @@ import {
 } from "../../.env.json";
 
 if (!firebase.apps.length){
-  console.log(FB_API_KEY)
   firebase.initializeApp({
     apiKey: FB_API_KEY,
     authDomain: FB_AUTH_DOMAIN,
