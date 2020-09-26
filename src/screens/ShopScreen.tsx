@@ -1,11 +1,27 @@
-import React, { useEffect, useState} from "react";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useEffect } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 
-export const ShopScreen: React.FC = () => {
-    useEffect(() => {}, [])
+import {ShopDetail} from "../components/ShopDetail"
+
+import {RootStackParamList} from "../types/navigation"
+
+type Props = {
+    navigation: StackNavigationProp<RootStackParamList, "Shop">
+    route: RouteProp<RootStackParamList, "Shop">
+}
+
+export const ShopScreen: React.FC<Props> = ({ navigation, route}: Props) => {
+    const {shop} = route.params;
+
+    useEffect(() => {
+        navigation.setOptions({ title: shop.name });
+    }, [shop])
+
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Shop Screen</Text>
+            <ShopDetail shop={shop} />
         </SafeAreaView>
     )
 }
