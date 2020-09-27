@@ -9,7 +9,10 @@ import { RootStackParamList } from "../types/navigation"
 const Stack = createStackNavigator<RootStackParamList>();
 
 export const HomeScreenNavigator = () => (
-    <Stack.Navigator>
+    <Stack.Navigator
+     screenOptions={{
+        headerTintColor: "#000"
+     }}>
         <Stack.Screen
         name="Home"
         component={HomeScreen}
