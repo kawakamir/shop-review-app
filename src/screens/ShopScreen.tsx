@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 
 import {ShopDetail} from "../components/ShopDetail"
+import {FloatingActionButton} from "../components/FloatingActionButton"
 
 import {RootStackParamList} from "../types/navigation"
 
@@ -22,6 +23,10 @@ export const ShopScreen: React.FC<Props> = ({ navigation, route}: Props) => {
     return (
         <SafeAreaView style={styles.container}>
             <ShopDetail shop={shop} />
+            <FloatingActionButton
+                iconName="plus"
+                onPress={() => navigation.navigate("CreateReview", {shop})}
+            />
         </SafeAreaView>
     )
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Feather} from "@expo/vector-icons"
 
-import {HomeScreenNavigator} from "./HomeStackNavigator";
+import {HomeStackNavigator} from "./HomeStackNavigator";
 import {UserScreen} from "../screens/UserScreen";
 import { color } from "react-native-reanimated";
 
@@ -18,7 +18,7 @@ export const MainTabNavigator = () => {
         >
             <Tab.Screen 
             name="Home" 
-            component={HomeScreenNavigator}
+            component={HomeStackNavigator}
             options={{
                 tabBarLabel: "Home",
                 tabBarIcon: ({ color, size}) => (
