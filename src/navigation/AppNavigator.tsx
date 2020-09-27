@@ -7,6 +7,7 @@ import {AuthScreen} from "../screens/AuthScreen"
 
 export const AppNavigator = () => {
     const user = null;
+    console.log("app navigator")
 
     return (
     <NavigationContainer>

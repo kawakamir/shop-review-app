@@ -28,8 +28,8 @@ export const ShopScreen: React.FC<Props> = ({ navigation, route}: Props) => {
                 onPress={() => navigation.navigate("CreateReview", {shop})}
             />
         </SafeAreaView>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
