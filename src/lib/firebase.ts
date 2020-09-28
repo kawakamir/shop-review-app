@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import "firebase/auth";
 import "firebase/firestore";
+import { Review } from '../types/review';
 import { Shop } from '../types/shop';
 import { initialUser, User } from '../types/user';
 const env = require("../../env.json")
@@ -21,7 +22,7 @@ if (!firebase.apps.length){
 
 export const getShops = async() => {
     const snapshot = await firebase.firestore().collection("shops").orderBy("score", "desc").get()
-    const shops = snapshot.docs.map(doc => doc.data() as Shop);
+    const shops = snapshot.docs.map(doc => ({...doc.data(), id: doc.id} as Shop));
     return shops
 }
 
@@ -45,4 +46,8 @@ export const signin = async () => {
 
 export const updateUser = async (userId: string, params: any) => {
   await firebase.firestore().collection("users").doc(userId).update(params);
+}
+
+export const addReview = async (shopId: string, review: Review) => {
+  await firebase.firestore().collection("shops").doc(shopId).collection("reviews").add(review)
 }
