@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState, useContext } from "react";
-import { StyleSheet, SafeAreaView, Text } from "react-native";
+import { StyleSheet, SafeAreaView, Text, View, Image } from "react-native";
 import {UserContext} from "../contexts/userContext"
 import * as firebase from 'firebase';
 /* components */
@@ -14,6 +14,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
 import { RouteProp } from "@react-navigation/native";
 import { addReview } from "../lib/firebase";
+import {pickImage} from "../lib/image-picker"
 import { ShopReviewItem } from "../components/ShopReviewItem";
 
 type Props = {
@@ -27,7 +28,9 @@ export const CreateReviewScreen: React.FC<Props> = ({
 }: Props) => {
   const { shop } = route.params;
   const [text, setText] = useState<string>("")
+  const [imageUri, setImageUri] = useState<string>("")
   const [score, setScore] = useState<number>(3)
+
   const {user} = useContext(UserContext);
 
   useLayoutEffect(() => {
@@ -57,10 +60,19 @@ export const CreateReviewScreen: React.FC<Props> = ({
     await addReview(shop.id, review)
   }
 
+  const onPickImage = async () => {
+    const uri = await pickImage();
+    setImageUri(uri)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StarInput score={score} onChangeScore={(value) => setScore(value)} />
       <TextArea value={text} onChangeText={(text) => setText(text)} label="レビュー" placeholder="レビューを書いてください" />
+      <View style={styles.photoContainer}>
+        <IconButton name="camera" onPress={onPickImage} color="#ccc" />
+        {!!imageUri && <Image source={{uri: imageUri}} style={styles.image} />}
+      </View>
       <Button text="レビューを投稿する" onPress={onSubmit} />
     </SafeAreaView>
   );
@@ -71,4 +83,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  photoContainer: {
+    margin: 8,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 8,
+  }
 });
