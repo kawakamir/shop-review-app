@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState, useContext } from "react";
 import { StyleSheet, SafeAreaView, Text, View, Image } from "react-native";
 import {UserContext} from "../contexts/userContext"
+import {getExtention} from "../utils/file"
 import * as firebase from 'firebase';
 /* components */
 import { IconButton } from "../components/IconButton";
@@ -13,7 +14,7 @@ import {Review} from "../types/review";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../types/navigation";
 import { RouteProp } from "@react-navigation/native";
-import { addReview } from "../lib/firebase";
+import { createReviewRef } from "../lib/firebase";
 import {pickImage} from "../lib/image-picker"
 import { ShopReviewItem } from "../components/ShopReviewItem";
 
@@ -43,6 +44,17 @@ export const CreateReviewScreen: React.FC<Props> = ({
   }, [navigation, shop]);
 
   const onSubmit = async () => {
+    // documentのidを先に取得
+    const reviewDocRef = await createReviewRef(shop.id)
+
+    // storageのpathを決定
+    const ext = getExtention(imageUri);
+    const storagePath = `reviews/${reviewDocRef.id}.${ext}`
+
+    // 画像をstorageにアップロード
+
+    // reviewドキュメントを作る
+
     const review = {
       user: {
         name: user?.name,
@@ -57,7 +69,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
       updatedAt: firebase.firestore.Timestamp.now(),
       createdAt: firebase.firestore.Timestamp.now(),
     } as Review
-    await addReview(shop.id, review)
+    // await addReview(shop.id, review)
   }
 
   const onPickImage = async () => {
