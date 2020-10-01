@@ -54,12 +54,12 @@ export const createReviewRef = async (shopId: string) => {
   .collection("shops")
   .doc(shopId)
   .collection("reviews")
-  .doc()
+  .doc();
 };
 
 export const uploadImage = async (uri: string, path: string) => {
   // uriをblobに変換
-  const localUri = await fetch(uri)
+  const localUri = await fetch(uri) // できない。。。
   const blob = await localUri.blob()
   // storageにupload
   const ref = firebase.storage().ref().child(path);

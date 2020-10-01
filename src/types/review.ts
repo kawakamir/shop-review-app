@@ -17,6 +17,7 @@ export type Review = {
     score: number;
     user: UserRef;
     shop: ShopRef;
+    imageUrl: string;
     updatedAt: firebase.firestore.Timestamp;
     createdAt: firebase.firestore.Timestamp;
 }
