@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, Text, View, Image, Alert } from "react-native
 import {UserContext} from "../contexts/userContext"
 import {getExtention} from "../utils/file"
 import * as firebase from 'firebase';
+import {ReviewsContext} from "../contexts/reviewsContext"
 /* components */
 import { IconButton } from "../components/IconButton";
 import {TextArea} from "../components/TextArea"
@@ -35,6 +36,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const {user} = useContext(UserContext);
+  const {reviews, setReviews} = useContext(ReviewsContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -63,6 +65,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
 
     // reviewドキュメントを作る
     const review = {
+      id: reviewDocRef.id,
       user: {
         name: user?.name,
         id: user?.id
@@ -78,6 +81,8 @@ export const CreateReviewScreen: React.FC<Props> = ({
       createdAt: firebase.firestore.Timestamp.now(),
     } as Review;
     await reviewDocRef.set(review)
+    // レビュー一覧に即時反映
+    setReviews([review, ...reviews])
     setLoading(false)
     navigation.goBack()
   }

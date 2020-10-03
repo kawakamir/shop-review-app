@@ -1,8 +1,9 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 import {ReviewItem} from "../components/ReviewItem"
+import {ReviewsContext} from "../contexts/reviewsContext"
 
 import {ShopDetail} from "../components/ShopDetail"
 import {FloatingActionButton} from "../components/FloatingActionButton"
@@ -19,7 +20,7 @@ type Props = {
 
 export const ShopScreen: React.FC<Props> = ({ navigation, route}: Props) => {
     const {shop} = route.params;
-    const [reviews, setReviews] = useState<Review[]>([]);
+    const {reviews, setReviews} = useContext(ReviewsContext);
 
     useEffect(() => {
         navigation.setOptions({ title: shop.name });
